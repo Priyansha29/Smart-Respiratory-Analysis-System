@@ -130,3 +130,57 @@ The primary objectives of this project are to:
                     │ Sound Analysis       │
                     │ & Screening Support  │
                     └──────────────────────┘
+
+
+---
+
+## 🫁 Problem Statement
+
+Respiratory sounds contain valuable acoustic information about the functioning of the respiratory system. Abnormal sounds such as **crackles and wheezes** can occur in a range of respiratory and pulmonary conditions.
+
+However, manually analyzing respiratory sounds can be subjective, time-consuming, and difficult to scale.
+
+**PulmoSense** explores whether digital signal processing and machine learning can be used to automatically extract meaningful information from respiratory audio recordings and identify abnormal acoustic patterns.
+
+The system therefore focuses on three levels of analysis:
+
+1. **Signal Level** — How does the respiratory sound behave acoustically?
+2. **Cycle Level** — Can individual respiratory cycles be classified based on their acoustic characteristics?
+3. **Recording / Patient Level** — Can predictions across multiple respiratory cycles be aggregated into a higher-level respiratory sound analysis?
+
+The ultimate objective is to establish a computational framework that can be extended toward **lung disease screening and respiratory health analysis**, while keeping clinical diagnosis outside the scope of the current prototype.
+
+---
+
+# 🔬 Methodology
+
+The complete pipeline consists of the following stages:
+
+### 1. Data Acquisition
+
+Respiratory recordings are obtained from the ICBHI 2017 Respiratory Sound Database.
+
+Each recording is associated with respiratory-cycle annotations containing:
+
+- Start time
+- End time
+- Crackle presence
+- Wheeze presence
+
+These annotations allow individual respiratory cycles to be isolated and analyzed independently.
+
+---
+
+### 2. Patient-Wise Dataset Splitting
+
+To reduce the risk of data leakage, the dataset is divided at the **patient level** rather than randomly splitting individual respiratory cycles.
+
+```text
+Patients
+   │
+   ├───────────────┐
+   ▼               ▼
+Training Patients  Testing Patients
+   │               │
+   ▼               ▼
+Training Cycles    Testing Cycles
