@@ -1,0 +1,57 @@
+# ============================================================
+# Respiratory Sound Analysis Project - Git Ignore
+# ============================================================
+
+# ------------------------------------------------------------
+# ICBHI 2017 Respiratory Sound Dataset
+# ------------------------------------------------------------
+# Do NOT upload the raw respiratory sound dataset to GitHub.
+data/ICBHI_final_database/
+data/ICBHI_final_database/**
+
+# ------------------------------------------------------------
+# MATLAB temporary / backup files
+# ------------------------------------------------------------
+*.asv
+*.m~
+*.autosave
+*.mexw64
+*.mexmaci64
+*.mexmaca64
+*.mexglx
+
+# MATLAB generated code/cache
+slprj/
+*.slxc
+
+# ------------------------------------------------------------
+# Generated datasets / intermediate MATLAB files
+# ------------------------------------------------------------
+# Feature matrices and trained models can become very large.
+*.mat
+
+# ------------------------------------------------------------
+# MATLAB figures / exported temporary files
+# ------------------------------------------------------------
+*.fig
+
+# ------------------------------------------------------------
+# Operating system files
+# ------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ------------------------------------------------------------
+# Editor / IDE files
+# ------------------------------------------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# ------------------------------------------------------------
+# Logs and temporary files
+# ------------------------------------------------------------
+*.log
+*.tmp
+*.temp
