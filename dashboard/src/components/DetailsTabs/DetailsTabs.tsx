@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { AnalysisResult } from "../../types/analysis";
+import { ErrorBoundary } from "../ui/ErrorBoundary";
 import { SignalTab } from "./tabs/SignalTab";
 import { PreprocessingTab } from "./tabs/PreprocessingTab";
 import { SegmentationTab } from "./tabs/SegmentationTab";
@@ -107,14 +108,21 @@ export function DetailsTabs({ result }: DetailsTabsProps) {
         </nav>
 
         <div className={styles.tabPanel} role="tabpanel">
-          {active === "signal" && <SignalTab result={result} />}
-          {active === "preprocessing" && <PreprocessingTab result={result} />}
-          {active === "segmentation" && <SegmentationTab result={result} />}
-          {active === "features" && <FeaturesTab result={result} />}
-          {active === "pca" && <PCATab result={result} />}
-          {active === "ml" && <MLTab result={result} />}
-          {active === "explainability" && <ExplainabilityTab result={result} />}
-          {active === "reliability" && <ReliabilityTab result={result} />}
+          <ErrorBoundary
+            resetKey={active}
+            label={TABS.find((tab) => tab.key === active)?.label}
+          >
+            {active === "signal" && <SignalTab result={result} />}
+            {active === "preprocessing" && <PreprocessingTab result={result} />}
+            {active === "segmentation" && <SegmentationTab result={result} />}
+            {active === "features" && <FeaturesTab result={result} />}
+            {active === "pca" && <PCATab result={result} />}
+            {active === "ml" && <MLTab result={result} />}
+            {active === "explainability" && (
+              <ExplainabilityTab result={result} />
+            )}
+            {active === "reliability" && <ReliabilityTab result={result} />}
+          </ErrorBoundary>
         </div>
       </div>
     </div>

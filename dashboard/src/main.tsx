@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import { ErrorBoundary } from "./components/ui/ErrorBoundary";
 import "./styles/tokens.css";
 import "./styles/base.css";
 
@@ -11,6 +12,8 @@ if (!container) {
 
 createRoot(container).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary label="PulmoSense dashboard">
+      <App />
+    </ErrorBoundary>
   </StrictMode>
 );

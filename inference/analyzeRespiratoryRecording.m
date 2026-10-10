@@ -390,7 +390,18 @@ if numel(f) > nPoints
     idx = round(linspace(1, numel(f), nPoints));
     f = f(idx); hiirDb = hiirDb(idx); hfirDb = hfirDb(idx);
 end
-fr = struct('frequency', round(f', 1), 'iirDb', round(hiirDb', 2), 'firDb', round(hfirDb', 2));
+% NOTE: build a struct ARRAY with scalar fields (not a scalar struct with
+% array fields). jsonencode serialises a struct array as a JSON array of
+% objects, which is what the dashboard's FilterResponsePoint[] contract
+% expects. A scalar struct would serialise as an object of arrays and break
+% the Preprocessing view.
+f = f(:); hiirDb = hiirDb(:); hfirDb = hfirDb(:);
+fr = struct('frequency', {}, 'iirDb', {}, 'firDb', {});
+for i = 1:numel(f)
+    fr(i).frequency = round(f(i), 1);
+    fr(i).iirDb     = round(hiirDb(i), 2);
+    fr(i).firDb     = round(hfirDb(i), 2);
+end
 end
 
 function feats = buildFeatures(ctx, rawVec, cycleSignal, filtered, Fs, opts)

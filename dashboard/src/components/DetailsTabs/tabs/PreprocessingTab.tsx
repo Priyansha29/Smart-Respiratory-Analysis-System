@@ -9,7 +9,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { AnalysisResult, PreprocessStageKey } from "../../../types/analysis";
+import type {
+  AnalysisResult,
+  FilterResponsePoint,
+  PreprocessStageKey,
+} from "../../../types/analysis";
 import { fixed } from "../../../utils/format";
 import { ChartTooltip } from "../../charts/ChartTooltip";
 import shared from "./shared.module.css";
@@ -19,6 +23,36 @@ const STAGE_COLORS: Record<PreprocessStageKey, string> = {
   filtered: "#1591DC",
   denoised: "#2C5EAD",
 };
+
+/**
+ * Accept both the intended array of points and a legacy object-of-arrays
+ * ({ frequency[], iirDb[], firDb[] }) that an older MATLAB worker emitted,
+ * so the view never crashes on an unexpected shape.
+ */
+function normalizeFilterResponse(
+  raw: FilterResponsePoint[] | unknown
+): FilterResponsePoint[] {
+  if (Array.isArray(raw)) {
+    return raw as FilterResponsePoint[];
+  }
+  if (
+    raw !== null &&
+    typeof raw === "object" &&
+    Array.isArray((raw as { frequency?: unknown }).frequency)
+  ) {
+    const obj = raw as {
+      frequency: number[];
+      iirDb?: number[];
+      firDb?: number[];
+    };
+    return obj.frequency.map((frequency, i) => ({
+      frequency,
+      iirDb: obj.iirDb?.[i] ?? 0,
+      firDb: obj.firDb?.[i] ?? 0,
+    }));
+  }
+  return [];
+}
 
 /**
  * PREPROCESSING — original / band-pass filtered / denoised signal,
@@ -35,7 +69,9 @@ export function PreprocessingTab({ result }: { result: AnalysisResult }) {
     a: active.signal.amplitude[i],
   }));
 
-  const response = filterResponse.filter((_, i) => i % 2 === 0);
+  const response = normalizeFilterResponse(filterResponse).filter(
+    (_, i) => i % 2 === 0
+  );
 
   return (
     <div className={shared.stack}>
