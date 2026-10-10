@@ -1,0 +1,97 @@
+/* ============================================================
+   PulmoSense — Design tokens
+   Clinical / biomedical analytics visual language.
+   Light theme, restrained color, high readability.
+   ============================================================ */
+
+:root {
+  /* ---- Brand palette ---------------------------------------- */
+  --ps-primary: #2c5ead; /* Primary blue   */
+  --ps-secondary: #1591dc; /* Secondary blue */
+  --ps-light: #4bb8fa; /* Light blue     */
+  --ps-pale: #c4e2f5; /* Very light blue*/
+  --ps-alert: #df301c; /* Alert red      */
+  --ps-orange: #ff9100; /* Orange         */
+  --ps-warm: #fff1d1; /* Very light warm*/
+  --ps-cyan: #00b7cd; /* Cyan           */
+
+  /* ---- Derived accents -------------------------------------- */
+  --ps-primary-weak: #eaf1fb;
+  --ps-cyan-weak: #e2f7fb;
+  --ps-alert-weak: #fdecea;
+  --ps-orange-weak: #fff5e6;
+  --ps-green: #1f9d6d;
+  --ps-green-weak: #e7f6f0;
+
+  /* ---- Surfaces & structure --------------------------------- */
+  --bg-app: #f4f7fb;
+  --bg-panel: #ffffff;
+  --bg-subtle: #f8fafd;
+  --bg-sunken: #eef3f9;
+  --border: #e3eaf3;
+  --border-strong: #d2dded;
+  --border-focus: var(--ps-secondary);
+
+  /* ---- Text ------------------------------------------------- */
+  --text: #16233d;
+  --text-secondary: #56688a;
+  --text-muted: #8496b0;
+  --text-inverse: #ffffff;
+
+  /* ---- Typography ------------------------------------------- */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", ui-monospace, "JetBrains Mono", Menlo,
+    Consolas, "Liberation Mono", monospace;
+
+  --fs-xs: 0.6875rem; /* 11 */
+  --fs-sm: 0.75rem; /* 12 */
+  --fs-base: 0.8125rem; /* 13 */
+  --fs-md: 0.875rem; /* 14 */
+  --fs-lg: 1rem; /* 16 */
+  --fs-xl: 1.125rem; /* 18 */
+  --fs-2xl: 1.375rem; /* 22 */
+  --fs-3xl: 1.75rem; /* 28 */
+  --fs-4xl: 2.25rem; /* 36 */
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+
+  /* ---- Spacing scale ---------------------------------------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 56px;
+
+  /* ---- Radii ------------------------------------------------ */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-pill: 999px;
+
+  /* ---- Shadows ---------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(22, 35, 61, 0.05);
+  --shadow-sm: 0 1px 3px rgba(22, 35, 61, 0.06),
+    0 4px 12px -6px rgba(44, 94, 173, 0.12);
+  --shadow-md: 0 2px 4px rgba(22, 35, 61, 0.05),
+    0 12px 28px -12px rgba(44, 94, 173, 0.18);
+  --shadow-focus: 0 0 0 3px rgba(21, 145, 220, 0.25);
+
+  /* ---- Transitions ------------------------------------------ */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 320ms;
+
+  /* ---- Layout ----------------------------------------------- */
+  --header-h: 60px;
+  --page-max: 1360px;
+}

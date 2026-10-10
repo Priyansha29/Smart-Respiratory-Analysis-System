@@ -33,6 +33,20 @@ These acoustic abnormalities can be associated with different respiratory and pu
 
 ---
 
+# 🖥️ Web Dashboard (Stage 1)
+
+A modern React + TypeScript frontend lives in the `dashboard/` folder. It provides audio upload, playback, an in-browser DSP preview (filtering, denoising, segmentation, features), a simple result card, and an eight-tab technical workspace. In Stage 1 it runs entirely on clearly-labelled **demo data** — the MATLAB pipeline is untouched.
+
+```bash
+cd dashboard
+npm install
+npm run dev
+```
+
+See [`dashboard/README.md`](dashboard/README.md) for scripts and for how the API seam (`dashboard/src/services/api.ts`) switches to the future `POST /analyze` endpoint.
+
+---
+
 # 🎯 Project Objectives
 
 The primary objectives of this project are to:

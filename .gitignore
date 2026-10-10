@@ -55,3 +55,11 @@ desktop.ini
 *.log
 *.tmp
 *.temp
+# ------------------------------------------------------------
+# Dashboard (React frontend)
+# ------------------------------------------------------------
+dashboard/node_modules/
+dashboard/dist/
+*.tsbuildinfo
+dashboard/.pipeline-check.mjs
+dashboard/.debug-envelope.mjs

@@ -1,0 +1,36 @@
+.notice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+}
+
+.disclaimer {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.demo {
+  background: var(--ps-warm);
+  border: 1px solid #f7dfae;
+  color: #7a5200;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+}
+
+.text {
+  min-width: 0;
+}
+
+.strong {
+  font-weight: 650;
+}

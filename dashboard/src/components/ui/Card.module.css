@@ -1,0 +1,57 @@
+.card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cardFlush {
+  padding: 0;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6) var(--sp-4);
+}
+
+.headerFlush {
+  padding-bottom: var(--sp-3);
+}
+
+.headerText {
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--fs-md);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin-top: 3px;
+}
+
+.subtitle {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: var(--lh-normal);
+}
+
+.body {
+  padding: var(--sp-4) var(--sp-6) var(--sp-6);
+  min-width: 0;
+}
+
+.bodyTight {
+  padding-top: var(--sp-2);
+}
+
+.action {
+  flex-shrink: 0;
+}

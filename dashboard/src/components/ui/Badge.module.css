@@ -1,0 +1,68 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.dotPulse {
+  animation: ps-pulse 2s var(--ease) infinite;
+}
+
+/* variants ---------------------------------------------------- */
+.neutral {
+  background: var(--bg-sunken);
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+.primary {
+  background: var(--ps-primary-weak);
+  color: var(--ps-primary);
+  border-color: #d3e2f6;
+}
+
+.cyan {
+  background: var(--ps-cyan-weak);
+  color: #047f91;
+  border-color: #bfeaf2;
+}
+
+.good {
+  background: var(--ps-green-weak);
+  color: var(--ps-green);
+  border-color: #cbeade;
+}
+
+.warn {
+  background: var(--ps-orange-weak);
+  color: #b35f00;
+  border-color: #ffe0b3;
+}
+
+.alert {
+  background: var(--ps-alert-weak);
+  color: var(--ps-alert);
+  border-color: #f7cfca;
+}
+
+.warm {
+  background: var(--ps-warm);
+  color: #8a5a00;
+  border-color: #f7dfae;
+}

@@ -1,0 +1,57 @@
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--sp-4);
+}
+
+.statusValue {
+  font-size: var(--fs-xl);
+  font-weight: 720;
+  letter-spacing: -0.01em;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.good {
+  background: var(--ps-green);
+  box-shadow: 0 0 0 4px var(--ps-green-weak);
+}
+
+.fair {
+  background: var(--ps-orange);
+  box-shadow: 0 0 0 4px var(--ps-orange-weak);
+}
+
+.poor {
+  background: var(--ps-alert);
+  box-shadow: 0 0 0 4px var(--ps-alert-weak);
+}
+
+.statusText {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-left: auto;
+  text-align: right;
+  max-width: 20ch;
+  line-height: var(--lh-normal);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-4) var(--sp-3);
+}
+
+@media (max-width: 1400px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,55 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.value {
+  font-size: var(--fs-xl);
+  font-weight: 660;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.valueSmall {
+  font-size: var(--fs-lg);
+}
+
+.unit {
+  font-size: var(--fs-sm);
+  font-weight: 550;
+  color: var(--text-muted);
+}
+
+.hint {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  line-height: var(--lh-normal);
+}
+
+/* tones -------------------------------------------------------- */
+.accent .value {
+  color: var(--ps-primary);
+}
+.alert .value {
+  color: var(--ps-alert);
+}
+.warn .value {
+  color: var(--ps-orange);
+}

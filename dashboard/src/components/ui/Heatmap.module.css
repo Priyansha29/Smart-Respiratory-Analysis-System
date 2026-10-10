@@ -1,0 +1,43 @@
+.root {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.canvas {
+  width: 100%;
+  display: block;
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: #12203a;
+  color: #fff;
+  padding: 5px 9px;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  transform: translate(-50%, calc(-100% - 10px));
+  box-shadow: var(--shadow-md);
+  z-index: 5;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.legendBar {
+  height: 7px;
+  width: 110px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+}

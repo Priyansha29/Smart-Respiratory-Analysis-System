@@ -1,0 +1,42 @@
+.box {
+  background: #12203a;
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 7px 11px;
+  font-size: var(--fs-xs);
+  box-shadow: var(--shadow-md);
+  min-width: 130px;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rowLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.rowValue {
+  font-weight: 650;
+  font-family: var(--font-mono);
+}
