@@ -97,9 +97,9 @@ export function SignalTab({ result }: { result: AnalysisResult }) {
         </div>
         <div className={shared.explain}>
           <span className={shared.explainTitle}>Provenance</span>
-          Waveform and amplitude statistics are read directly from the uploaded
-          recording. Full feature values in the Features tab are demo data until
-          the MATLAB engine is connected.
+          {result.meta.isDemo
+            ? "Waveform and amplitude statistics are read directly from the uploaded recording. Full feature values in the Features tab are demo data until the MATLAB engine is connected."
+            : "Waveform and amplitude statistics are read directly from the uploaded recording."}
         </div>
       </div>
     </div>

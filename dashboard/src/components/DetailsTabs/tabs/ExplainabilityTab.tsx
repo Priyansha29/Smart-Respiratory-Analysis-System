@@ -45,7 +45,9 @@ export function ExplainabilityTab({ result }: { result: AnalysisResult }) {
 
       <div className={shared.row} style={{ justifyContent: "space-between" }}>
         <span className={shared.subhead}>Top important features</span>
-        <span className={shared.demoTag}>Demo ranking</span>
+        <span className={shared.demoTag}>
+          {result.meta.isDemo ? "Demo ranking" : "Random-forest importance"}
+        </span>
       </div>
 
       <ResponsiveContainer width="100%" height={380}>
@@ -113,10 +115,24 @@ export function ExplainabilityTab({ result }: { result: AnalysisResult }) {
           importance for a disease.
         </div>
         <div className={shared.explain}>
-          <span className={shared.explainTitle}>Demo data</span>
-          Feature names are taken from the real 101-feature extractor; the
-          importance values are placeholders until{" "}
-          <code>analyzeFeatureImportance</code> results are served by the API.
+          <span className={shared.explainTitle}>
+            {result.meta.isDemo ? "Demo data" : "Dataset-level importance"}
+          </span>
+          {result.meta.isDemo ? (
+            <>
+              Feature names are taken from the real 101-feature extractor; the
+              importance values are placeholders until{" "}
+              <code>analyzeFeatureImportance</code> results are served by the
+              API.
+            </>
+          ) : (
+            <>
+              Importance is computed from the trained random-forest ensemble
+              over the ICBHI training features — it describes the model's global
+              reliance on each feature, not this recording alone. It does{" "}
+              <strong>not</strong> imply clinical importance.
+            </>
+          )}
         </div>
       </div>
     </div>

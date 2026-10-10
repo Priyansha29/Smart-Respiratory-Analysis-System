@@ -211,10 +211,12 @@ export function PCATab({ result }: { result: AnalysisResult }) {
           </div>
 
           <div className={shared.explain}>
-            <span className={shared.explainTitle}>Demo data</span>
-            Projection points are synthetic demo clusters with realistic
-            structure. After integration, this view is populated from the PCA
-            fitted during MATLAB training.
+            <span className={shared.explainTitle}>
+              {result.meta.isDemo ? "Demo data" : "Dataset-level projection"}
+            </span>
+            {result.meta.isDemo
+              ? "Projection points are synthetic demo clusters with realistic structure. After integration, this view is populated from the PCA fitted during MATLAB training."
+              : "Projection points are the real training cycles from the PCA fitted during MATLAB training, coloured by their labelled class. \u201cThis recording\u201d marks where the analysed features fall in that space."}
           </div>
         </div>
       </div>

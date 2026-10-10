@@ -92,6 +92,27 @@
   box-shadow: 0 0 0 3px var(--ps-orange-weak);
 }
 
+.statusDotBusy {
+  background: var(--ps-accent, #1591dc);
+  box-shadow: 0 0 0 3px rgba(21, 145, 220, 0.18);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.statusDotWarn {
+  background: var(--ps-red, #d64545);
+  box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.16);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
 @media (max-width: 900px) {
   .tagline {
     display: none;

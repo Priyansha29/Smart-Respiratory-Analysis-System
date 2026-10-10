@@ -3,21 +3,17 @@
    ------------------------------------------------------------
    The dashboard only ever calls `analyzeAudio(file)`.
 
-   STAGE 1 (now)     : returns deterministic mock analysis built
-                       from the uploaded recording + demo model
-                       outputs (src/data/mockAnalysis.ts).
-   STAGE 3 (later)   : the same function performs
-                       POST /analyze (multipart/form-data) against
-                       the FastAPI layer, which serialises results
-                       from the MATLAB entry point
-                       analyzeRespiratoryRecording().
+   STAGE 2 (now)
+     • VITE_API_BASE set      -> real mode. POST /analyze (multipart)
+                                 against the FastAPI layer, which calls the
+                                 MATLAB inference worker (Part 4 models).
+     • VITE_DEMO_MODE = "true"-> demo mode. Explicitly selected simulated
+                                 analysis, always labelled "Demo data".
+     • neither set            -> unconfigured. `analyzeAudio` throws a clear
+                                 error; the dashboard never silently mocks.
 
-   Switching stages requires NO component changes — only this
-   file (or the VITE_API_BASE environment variable).
-
-   Planned endpoints:
-     POST /analyze   multipart/form-data  -> AnalysisResult JSON
-     GET  /health                                    -> status
+   The backend returns the same AnalysisResult JSON shape the UI is built
+   against, so no component needs to change when switching modes.
    ============================================================ */
 
 import type { AnalysisResult } from "../types/analysis";
@@ -25,63 +21,160 @@ import { buildMockAnalysis } from "../data/mockAnalysis";
 import { parseWav, readWavSamples } from "../utils/wav";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "";
+const DEMO_ENABLED = (import.meta.env.VITE_DEMO_MODE ?? "false") === "true";
 
-/** True while running without a configured backend (Stage 1). */
-export const IS_MOCK_MODE = API_BASE.length === 0;
+/** Real backend configured? */
+export const HAS_BACKEND = API_BASE.length > 0;
+/** Explicitly-selected demo mode (never an implicit fallback). */
+export const IS_DEMO_MODE = !HAS_BACKEND && DEMO_ENABLED;
+/** True when the dashboard cannot analyse anything (no backend, no demo). */
+export const IS_UNCONFIGURED = !HAS_BACKEND && !IS_DEMO_MODE;
 
 const ANALYZE_PATH = "/analyze";
 const HEALTH_PATH = "/health";
 
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+/* ------------------------------------------------------------
+   Types
+   ------------------------------------------------------------ */
+
+/** Upload/analysis progress surfaced to the UI. */
+export interface AnalyzeProgress {
+  phase: "uploading" | "analyzing";
+  /** 0–100 for the upload phase; 100 once analysis begins. */
+  percent: number;
 }
+
+/** Shape of GET /health. */
+export interface BackendHealth {
+  status: string;
+  api: string;
+  demo_mode: boolean;
+  matlab_available: boolean;
+  matlab_worker: string;
+  matlab_version?: string | null;
+  worker_detail?: string | null;
+  model_artifact?: string | null;
+  model_artifact_accessible: boolean;
+  inference_ready: boolean;
+}
+
+/** Raised when no analysis backend is configured. */
+export class AnalysisConfigError extends Error {}
+
+/* ------------------------------------------------------------
+   Public API
+   ------------------------------------------------------------ */
 
 /**
- * Analyzes a respiratory sound recording.
+ * Analyze a respiratory sound recording.
  *
- * @param file WAV recording selected by the user.
- * @returns the full structured AnalysisResult for the UI.
+ * @param file       WAV recording selected by the user.
+ * @param onProgress optional progress callback (upload then analysis).
  */
-export async function analyzeAudio(file: File): Promise<AnalysisResult> {
-  return IS_MOCK_MODE ? mockAnalyze(file) : requestAnalyze(file);
+export async function analyzeAudio(
+  file: File,
+  onProgress?: (progress: AnalyzeProgress) => void
+): Promise<AnalysisResult> {
+  if (HAS_BACKEND) return requestAnalyze(file, onProgress);
+  if (IS_DEMO_MODE) return mockAnalyze(file, onProgress);
+  throw new AnalysisConfigError(
+    "No analysis backend is configured. Set VITE_API_BASE to the FastAPI URL " +
+      "(e.g. http://127.0.0.1:8000), or enable demo mode with VITE_DEMO_MODE=true."
+  );
 }
 
-/* ------------------------------------------------------------
-   Stage 3+ : real FastAPI request (kept ready, unused in Stage 1)
-   ------------------------------------------------------------ */
-
-async function requestAnalyze(file: File): Promise<AnalysisResult> {
-  const form = new FormData();
-  form.append("audio", file, file.name);
-
-  const response = await fetch(`${API_BASE}${ANALYZE_PATH}`, {
-    method: "POST",
-    body: form,
-  });
-
-  if (!response.ok) {
-    throw new Error(`Analysis failed (HTTP ${response.status}).`);
-  }
-  return (await response.json()) as AnalysisResult;
-}
-
-/** Optional backend liveness probe used by the header status pill. */
-export async function healthCheck(): Promise<boolean> {
-  if (IS_MOCK_MODE) return false;
+/** GET /health, or null when unavailable / not configured. */
+export async function getHealth(): Promise<BackendHealth | null> {
+  if (!HAS_BACKEND) return null;
   try {
-    const response = await fetch(`${API_BASE}${HEALTH_PATH}`);
-    return response.ok;
+    const response = await fetch(`${API_BASE}${HEALTH_PATH}`, { cache: "no-store" });
+    if (!response.ok) return null;
+    return (await response.json()) as BackendHealth;
   } catch {
-    return false;
+    return null;
   }
 }
 
 /* ------------------------------------------------------------
-   Stage 1 : mock analysis
+   Real request (XHR for genuine upload progress)
    ------------------------------------------------------------ */
 
-async function mockAnalyze(file: File): Promise<AnalysisResult> {
-  // Realistic latency so the loading state is exercised in demos.
+function requestAnalyze(
+  file: File,
+  onProgress?: (progress: AnalyzeProgress) => void
+): Promise<AnalysisResult> {
+  return new Promise<AnalysisResult>((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `${API_BASE}${ANALYZE_PATH}`);
+    xhr.responseType = "text";
+    // Cold-starting the MATLAB worker + inference can take a while.
+    xhr.timeout = 300_000;
+
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable && onProgress) {
+        onProgress({
+          phase: "uploading",
+          percent: Math.round((event.loaded / event.total) * 100),
+        });
+      }
+    };
+    xhr.upload.onload = () => onProgress?.({ phase: "analyzing", percent: 100 });
+
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          resolve(JSON.parse(xhr.responseText) as AnalysisResult);
+        } catch {
+          reject(new Error("The analysis backend returned an unreadable response."));
+        }
+        return;
+      }
+      reject(new Error(errorMessage(xhr.status, xhr.responseText)));
+    };
+    xhr.onerror = () =>
+      reject(
+        new Error(
+          "Could not reach the analysis backend. Make sure the FastAPI server is running."
+        )
+      );
+    xhr.ontimeout = () =>
+      reject(new Error("The analysis request timed out. Please try a shorter recording."));
+
+    const form = new FormData();
+    form.append("audio", file, file.name);
+    xhr.send(form);
+  });
+}
+
+function errorMessage(status: number, body: string): string {
+  let detail = "";
+  try {
+    const parsed = JSON.parse(body) as { detail?: unknown };
+    if (typeof parsed.detail === "string") detail = parsed.detail;
+  } catch {
+    /* not JSON */
+  }
+  if (status === 503) {
+    return detail || "The analysis engine is still starting. Please retry shortly.";
+  }
+  if (status === 415) return detail || "Only WAV recordings are supported.";
+  if (status === 413) return detail || "The recording is too large.";
+  if (status === 400) return detail || "The recording file is empty or invalid.";
+  if (status === 422) return detail || "The recording could not be analysed.";
+  return detail || `Analysis failed (HTTP ${status}).`;
+}
+
+/* ------------------------------------------------------------
+   Demo analysis (explicitly enabled only)
+   ------------------------------------------------------------ */
+
+async function mockAnalyze(
+  file: File,
+  onProgress?: (progress: AnalyzeProgress) => void
+): Promise<AnalysisResult> {
+  // Exercise the upload/analysis states even in demo mode.
+  onProgress?.({ phase: "uploading", percent: 100 });
+  onProgress?.({ phase: "analyzing", percent: 100 });
   await delay(1300);
 
   let wav = await readWavSamples(file);
@@ -98,6 +191,10 @@ async function mockAnalyze(file: File): Promise<AnalysisResult> {
   }
 
   return buildMockAnalysis(file.name, wav);
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function decodeWithWebAudio(

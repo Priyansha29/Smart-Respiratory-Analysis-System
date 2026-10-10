@@ -63,3 +63,18 @@ dashboard/dist/
 *.tsbuildinfo
 dashboard/.pipeline-check.mjs
 dashboard/.debug-envelope.mjs
+
+# ------------------------------------------------------------
+# Backend (FastAPI)
+# ------------------------------------------------------------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+backend/.venv/
+.venv/
+
+# Local environment overrides (never commit secrets / machine paths)
+.env
+.env.local
+.env.*.local

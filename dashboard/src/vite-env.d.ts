@@ -2,12 +2,15 @@
 
 interface ImportMetaEnv {
   /**
-   * Base URL of the FastAPI backend.
-   * When unset (Stage 1), the dashboard runs on the mock analysis
-   * service. Set VITE_API_BASE, e.g. http://127.0.0.1:8000, to
-   * switch the same call to POST /analyze on the real backend.
+   * Base URL of the FastAPI backend, e.g. http://127.0.0.1:8000.
+   * When set, the dashboard calls POST /analyze on the real backend.
    */
   readonly VITE_API_BASE?: string;
+  /**
+   * Set to "true" to run the explicitly-selected demo mode (simulated
+   * analysis, always clearly labelled). Ignored when VITE_API_BASE is set.
+   */
+  readonly VITE_DEMO_MODE?: string;
 }
 
 interface ImportMeta {

@@ -270,11 +270,23 @@ export function FeaturesTab({ result }: { result: AnalysisResult }) {
       </div>
 
       <div className={shared.explain}>
-        <span className={shared.explainTitle}>Demo data</span>
-        Spectrogram and MFCC heatmaps are computed from the uploaded recording
-        in the browser. Individual feature values, like model outputs, are
-        demonstration placeholders until the MATLAB feature extractor runs
-        through the API.
+        <span className={shared.explainTitle}>
+          {result.meta.isDemo ? "Demo data" : "Computed from this recording"}
+        </span>
+        {result.meta.isDemo ? (
+          <>
+            Spectrogram and MFCC heatmaps are computed from the uploaded
+            recording in the browser. Individual feature values, like model
+            outputs, are demonstration placeholders until the MATLAB feature
+            extractor runs through the API.
+          </>
+        ) : (
+          <>
+            Feature values, the MFCC heat-map, spectrogram and wavelet breakdown
+            are all computed by the MATLAB feature extractor from the uploaded
+            recording (band-pass filtered, same preprocessing as training).
+          </>
+        )}
       </div>
     </div>
   );

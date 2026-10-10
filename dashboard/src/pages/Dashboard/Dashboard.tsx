@@ -1,8 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { AnalysisResult, AudioMetadata } from "../../types/analysis";
-import { analyzeAudio, IS_MOCK_MODE } from "../../services/api";
+import {
+  analyzeAudio,
+  getHealth,
+  HAS_BACKEND,
+  IS_DEMO_MODE,
+  IS_UNCONFIGURED,
+  type AnalyzeProgress,
+  type BackendHealth,
+} from "../../services/api";
 import { readAudioMetadata } from "../../utils/wav";
-import { Header } from "../../components/Header/Header";
+import { Header, type SystemStatus } from "../../components/Header/Header";
 import { AudioInputPanel } from "../../components/AudioInput/AudioInputPanel";
 import { AnalysisResultPanel } from "../../components/AnalysisResult/AnalysisResult";
 import { SignalQualityCard } from "../../components/SignalQuality/SignalQualityCard";
@@ -10,7 +18,7 @@ import { WaveformChart } from "../../components/WaveformChart/WaveformChart";
 import { DetailsTabs } from "../../components/DetailsTabs/DetailsTabs";
 import { Card } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
-import { DisclaimerNotice } from "../../components/ui/Notice";
+import { DisclaimerNotice, DemoNotice } from "../../components/ui/Notice";
 import styles from "./Dashboard.module.css";
 
 /**
@@ -22,7 +30,9 @@ export function Dashboard() {
   const [metadata, setMetadata] = useState<AudioMetadata | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
+  const [progress, setProgress] = useState<AnalyzeProgress | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [status, setStatus] = useState<SystemStatus>(initialStatus);
   const resultRef = useRef<HTMLDivElement | null>(null);
 
   // Revoke object URLs when the selection changes or on unmount.
@@ -31,6 +41,22 @@ export function Dashboard() {
       if (metadata?.playbackUrl) URL.revokeObjectURL(metadata.playbackUrl);
     };
   }, [metadata?.playbackUrl]);
+
+  // Poll backend health so the header reflects the real engine state.
+  useEffect(() => {
+    if (!HAS_BACKEND) return;
+    let cancelled = false;
+    const poll = async () => {
+      const health = await getHealth();
+      if (!cancelled) setStatus(mapHealth(health));
+    };
+    void poll();
+    const id = window.setInterval(poll, 5000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(id);
+    };
+  }, []);
 
   const handleFileSelected = useCallback(async (selected: File) => {
     setError(null);
@@ -49,9 +75,11 @@ export function Dashboard() {
   const handleAnalyze = useCallback(async () => {
     if (!file || analyzing) return;
     setError(null);
+    setResult(null);
+    setProgress({ phase: "uploading", percent: 0 });
     setAnalyzing(true);
     try {
-      const analysis = await analyzeAudio(file);
+      const analysis = await analyzeAudio(file, setProgress);
       setResult(analysis);
     } catch (e) {
       setError(
@@ -61,6 +89,7 @@ export function Dashboard() {
       );
     } finally {
       setAnalyzing(false);
+      setProgress(null);
     }
   }, [file, analyzing]);
 
@@ -73,9 +102,17 @@ export function Dashboard() {
 
   return (
     <>
-      <Header demoMode={IS_MOCK_MODE} />
+      <Header status={status} />
 
       <main className={styles.page}>
+        {status.mode === "demo" && (
+          <DemoNotice>
+            <strong>Demo mode.</strong> Results on this page are simulated for
+            demonstration and are clearly marked. They are not produced by the
+            trained model. Unset <code>VITE_DEMO_MODE</code> and configure{" "}
+            <code>VITE_API_BASE</code> to run real inference.
+          </DemoNotice>
+        )}
         {/* ---------------- Input + result ---------------- */}
         <div className={styles.topGrid}>
           <div className={styles.leftColumn}>
@@ -83,7 +120,9 @@ export function Dashboard() {
               <AudioInputPanel
                 metadata={metadata}
                 isAnalyzing={analyzing}
+                progress={progress}
                 error={error}
+                isConfigured={!IS_UNCONFIGURED}
                 onFileSelected={handleFileSelected}
                 onAnalyze={handleAnalyze}
                 onClear={handleClear}
@@ -127,8 +166,11 @@ export function Dashboard() {
                 <div className={styles.skeleton} style={{ border: "none", padding: 0, boxShadow: "none" }}>
                   <div className={styles.skeletonLabel}>
                     <span className={styles.spinner} />
-                    Running DSP preprocessing · feature extraction ·
-                    classification…
+                    {progress?.phase === "uploading"
+                      ? `Uploading recording… ${progress.percent}%`
+                      : progress?.phase === "analyzing"
+                        ? "Analyzing on the MATLAB engine · preprocessing · feature extraction · classification…"
+                        : "Running DSP preprocessing · feature extraction · classification…"}
                   </div>
                   <div className={`${styles.skeletonRow} ${styles.skeletonTitle}`} />
                   <div className={styles.skeletonRow} />
@@ -269,4 +311,27 @@ function WaveIcon({ className }: { className?: string }) {
       <path d="M2 12h3l2-7 3 14 2.5-11 2 8 1.8-4H22" />
     </svg>
   );
+}
+
+/* ------------------------------------------------------------
+   Backend status helpers
+   ------------------------------------------------------------ */
+
+function initialStatus(): SystemStatus {
+  if (IS_DEMO_MODE) return { mode: "demo" };
+  if (!HAS_BACKEND) return { mode: "unconfigured" };
+  return { mode: "real", state: "checking" };
+}
+
+function mapHealth(health: BackendHealth | null): SystemStatus {
+  if (!health) return { mode: "real", state: "offline" };
+  if (health.inference_ready) return { mode: "real", state: "ready" };
+  if (health.matlab_worker === "starting") {
+    return { mode: "real", state: "starting" };
+  }
+  return {
+    mode: "real",
+    state: "offline",
+    detail: health.worker_detail ?? undefined,
+  };
 }

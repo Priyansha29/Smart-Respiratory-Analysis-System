@@ -33,9 +33,24 @@ These acoustic abnormalities can be associated with different respiratory and pu
 
 ---
 
-# 🖥️ Web Dashboard (Stage 1)
+# 🖥️ Web Dashboard + Backend (Stage 2)
 
-A modern React + TypeScript frontend lives in the `dashboard/` folder. It provides audio upload, playback, an in-browser DSP preview (filtering, denoising, segmentation, features), a simple result card, and an eight-tab technical workspace. In Stage 1 it runs entirely on clearly-labelled **demo data** — the MATLAB pipeline is untouched.
+A modern React + TypeScript frontend lives in the `dashboard/` folder, and a
+FastAPI backend in `backend/` connects it to the **real trained MATLAB models**
+(the MATLAB research pipeline is untouched). Upload a WAV and get the detected
+respiratory sound pattern, per-class scores, signal quality and the full
+technical workspace from genuine inference. A clearly-labelled **demo mode**
+remains available as an explicit opt-in.
+
+**1. Start the backend** (MATLAB worker; up to ~1 minute to load the models):
+
+```bash
+cd backend
+py -m pip install -r requirements.txt
+py -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+**2. Start the dashboard:**
 
 ```bash
 cd dashboard
@@ -43,7 +58,9 @@ npm install
 npm run dev
 ```
 
-See [`dashboard/README.md`](dashboard/README.md) for scripts and for how the API seam (`dashboard/src/services/api.ts`) switches to the future `POST /analyze` endpoint.
+Then open http://127.0.0.1:5173. See [`backend/README.md`](backend/README.md)
+and [`dashboard/README.md`](dashboard/README.md) for details, endpoint
+contracts and tests.
 
 ---
 

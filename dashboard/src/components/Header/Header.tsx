@@ -1,16 +1,26 @@
 import { Badge } from "../ui/Badge";
 import styles from "./Header.module.css";
 
+/** Connectivity state of the analysis engine, shown in the header pill. */
+export type SystemStatus =
+  | { mode: "demo" }
+  | { mode: "unconfigured" }
+  | {
+      mode: "real";
+      state: "checking" | "starting" | "ready" | "offline";
+      detail?: string;
+    };
+
 interface HeaderProps {
-  /** Stage-1 mock mode indicator. */
-  demoMode: boolean;
+  status: SystemStatus;
 }
 
 /**
- * Global header: identity, tagline, system status and the
+ * Global header: identity, tagline, live engine status and the
  * research-prototype badge.
  */
-export function Header({ demoMode }: HeaderProps) {
+export function Header({ status }: HeaderProps) {
+  const view = describe(status);
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -32,24 +42,67 @@ export function Header({ demoMode }: HeaderProps) {
           <Badge variant="primary" title="Engineering project build">
             Research Prototype
           </Badge>
-          <span
-            className={styles.status}
-            title={
-              demoMode
-                ? "The dashboard is running on Stage-1 mock analysis data."
-                : "Connected to the analysis backend."
-            }
-          >
-            <span
-              className={`${styles.statusDot} ${demoMode ? styles.statusDotDemo : ""}`}
-              aria-hidden
-            />
-            {demoMode ? "Demo mode · Engine standby" : "System ready"}
+          <span className={styles.status} title={view.title}>
+            <span className={`${styles.statusDot} ${view.dotClass}`} aria-hidden />
+            {view.label}
           </span>
         </div>
       </div>
     </header>
   );
+}
+
+function describe(status: SystemStatus): {
+  label: string;
+  title: string;
+  dotClass: string;
+} {
+  if (status.mode === "demo") {
+    return {
+      label: "Demo mode · Simulated data",
+      title:
+        "Demo mode is enabled (VITE_DEMO_MODE=true). Results are simulated and clearly labelled — never a real model inference.",
+      dotClass: styles.statusDotDemo,
+    };
+  }
+  if (status.mode === "unconfigured") {
+    return {
+      label: "Backend not configured",
+      title:
+        "No analysis backend is configured. Set VITE_API_BASE (e.g. http://127.0.0.1:8000) to the FastAPI server, or enable demo mode with VITE_DEMO_MODE=true.",
+      dotClass: styles.statusDotWarn,
+    };
+  }
+  switch (status.state) {
+    case "ready":
+      return {
+        label: "System ready",
+        title: "Connected to the MATLAB analysis engine.",
+        dotClass: "",
+      };
+    case "starting":
+      return {
+        label: "Engine starting…",
+        title:
+          "The MATLAB analysis worker is loading the trained models. This can take up to a minute.",
+        dotClass: styles.statusDotBusy,
+      };
+    case "offline":
+      return {
+        label: "Backend offline",
+        title:
+          status.detail ??
+          "The dashboard cannot reach the analysis backend. Is the FastAPI server running?",
+        dotClass: styles.statusDotWarn,
+      };
+    case "checking":
+    default:
+      return {
+        label: "Connecting…",
+        title: "Contacting the analysis backend.",
+        dotClass: styles.statusDotBusy,
+      };
+  }
 }
 
 /** PulmoSense mark: breath waveform inside a rounded shield. */

@@ -6,13 +6,16 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import type { AudioMetadata } from "../../types/analysis";
+import type { AnalyzeProgress } from "../../services/api";
 import { timecode } from "../../utils/format";
 import styles from "./AudioInputPanel.module.css";
 
 interface AudioInputPanelProps {
   metadata: AudioMetadata | null;
   isAnalyzing: boolean;
+  progress: AnalyzeProgress | null;
   error: string | null;
+  isConfigured: boolean;
   onFileSelected: (file: File) => void;
   onAnalyze: () => void;
   onClear: () => void;
@@ -37,7 +40,9 @@ function isWavFile(file: File): boolean {
 export function AudioInputPanel({
   metadata,
   isAnalyzing,
+  progress,
   error,
+  isConfigured,
   onFileSelected,
   onAnalyze,
   onClear,
@@ -232,17 +237,31 @@ export function AudioInputPanel({
         </div>
       )}
 
+      {!isConfigured && (
+        <div className={styles.error} role="note">
+          <span aria-hidden>⚙</span>
+          <span>
+            No analysis backend is configured, so recordings cannot be analysed.
+            Start the FastAPI server and set <code>VITE_API_BASE</code>.
+          </span>
+        </div>
+      )}
+
       <div className={styles.actions}>
         <button
           type="button"
           className={styles.analyzeBtn}
           onClick={onAnalyze}
-          disabled={!metadata || isAnalyzing}
+          disabled={!metadata || isAnalyzing || !isConfigured}
         >
           {isAnalyzing ? (
             <>
               <span className={styles.spinner} aria-hidden />
-              Analyzing recording…
+              {progress?.phase === "uploading"
+                ? `Uploading… ${progress.percent}%`
+                : progress?.phase === "analyzing"
+                  ? "Analyzing recording…"
+                  : "Analyzing recording…"}
             </>
           ) : (
             <>

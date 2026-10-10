@@ -173,10 +173,12 @@ export function ReliabilityTab({ result }: { result: AnalysisResult }) {
           calibrated probability and must not be interpreted as one.
         </div>
         <div className={shared.explain}>
-          <span className={shared.explainTitle}>Demo data</span>
-          Stability, agreement and status values are illustrative until
-          patient-level evaluation results are returned by the MATLAB
-          pipeline.
+          <span className={shared.explainTitle}>
+            {result.meta.isDemo ? "Demo data" : "Computed from this recording"}
+          </span>
+          {result.meta.isDemo
+            ? "Stability, agreement and status values are illustrative until patient-level evaluation results are returned by the MATLAB pipeline."
+            : "Segments analysed, prediction stability and class agreement are computed from this recording's automatic segmentation. Patient-level evaluation across recordings is reported separately."}
         </div>
       </div>
     </div>

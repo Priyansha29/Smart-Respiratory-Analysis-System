@@ -52,7 +52,11 @@ export function MLTab({ result }: { result: AnalysisResult }) {
         <span className={shared.subhead}>
           Model comparison <Badge variant="primary">{activeModel}</Badge>
         </span>
-        <span className={shared.demoTag}>Demonstration metrics</span>
+        <span className={shared.demoTag}>
+          {result.meta.isDemo
+            ? "Demonstration metrics"
+            : "Measured on held-out test set"}
+        </span>
       </div>
 
       {/* ---- Comparison table ---- */}
@@ -259,11 +263,24 @@ export function MLTab({ result }: { result: AnalysisResult }) {
       </div>
 
       <div className={shared.explain}>
-        <span className={shared.explainTitle}>Demo data</span>
-        The metrics and confusion matrix shown here are illustrative
-        demonstration values so the interface can be evaluated before the
-        MATLAB training outputs are connected. They are not measured model
-        performance.
+        <span className={shared.explainTitle}>
+          {result.meta.isDemo ? "Demo data" : "Dataset-level metrics"}
+        </span>
+        {result.meta.isDemo ? (
+          <>
+            The metrics and confusion matrix shown here are illustrative
+            demonstration values so the interface can be evaluated before the
+            MATLAB training outputs are connected. They are not measured model
+            performance.
+          </>
+        ) : (
+          <>
+            These values are measured on the patient-wise held-out test split of
+            the ICBHI dataset during MATLAB training — they are dataset-level
+            model performance, not the score for this individual recording. The
+            per-recording prediction is shown in the result panel above.
+          </>
+        )}
       </div>
     </div>
   );
