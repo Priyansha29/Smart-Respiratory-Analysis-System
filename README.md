@@ -379,8 +379,6 @@ Its outputs describe patterns identified by a machine-learning system trained on
 
 Electronics and Telecommunication Engineering | Biomedical Signal Processing | Machine Learning | Full-Stack Development
 
-* **GitHub:** [@Priyansha29](https://github.com/Priyansha29)
-* **Project repository:** [Smart Respiratory Lung Analysis System](https://github.com/Priyansha29/Smart-Respiratory-Analysis-System)
 
 ---
 
