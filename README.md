@@ -19,7 +19,7 @@
 ## 🖥️ Project at a Glance
 
 <p align="center">
-  <img src="assets/dashboard-overview.png" alt="Smart Respiratory Lung Analysis System dashboard" width="100%"/>
+  <img src="assets/analysis-results.png" alt="Smart Respiratory Lung Analysis System dashboard" width="100%"/>
 </p>
 
 **Smart Respiratory Lung Analysis System** is an end-to-end biomedical signal analysis project that combines digital signal processing (DSP), respiratory-cycle analysis, feature engineering, machine learning, and an interactive web dashboard.
@@ -68,7 +68,7 @@ The dashboard provides a unified workspace for respiratory recording analysis. I
 ### 02 — Respiratory sound classification and signal quality
 
 <p align="center">
-  <img src="assets/analysis-results.png" alt="Respiratory sound classification results, classifier scores, confidence, and signal quality metrics" width="100%"/>
+  <img src="assets/Screenshot 2026-10-10 233133.png" alt="Respiratory sound classification results, classifier scores, confidence, and signal quality metrics" width="100%"/>
 </p>
 
 The results interface presents the predicted respiratory sound pattern alongside class-score comparisons, score-derived confidence, and signal-quality information when available.
