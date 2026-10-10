@@ -1,5 +1,5 @@
 /* ============================================================
-   PulmoSense — Stage 1 mock analysis builder
+   Smart Respiratory Lung Analysis System — Stage 1 mock analysis builder
    ------------------------------------------------------------
    Produces a complete AnalysisResult while the MATLAB engine is
    not yet connected (Stage 1 of the project plan).

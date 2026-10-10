@@ -1,5 +1,5 @@
 /* ============================================================
-   PulmoSense — WAV file inspection
+   Smart Respiratory Lung Analysis System — WAV file inspection
    ------------------------------------------------------------
    Reads genuine file information (sampling rate, duration,
    channels, samples) straight from the WAV container so the

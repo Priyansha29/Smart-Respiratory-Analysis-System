@@ -12,7 +12,7 @@ if (!container) {
 
 createRoot(container).render(
   <StrictMode>
-    <ErrorBoundary label="PulmoSense dashboard">
+    <ErrorBoundary label="Smart Respiratory Lung Analysis System">
       <App />
     </ErrorBoundary>
   </StrictMode>

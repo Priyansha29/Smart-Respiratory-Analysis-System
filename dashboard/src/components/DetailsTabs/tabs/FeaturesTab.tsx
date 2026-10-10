@@ -16,11 +16,11 @@ import { fixed } from "../../../utils/format";
 import shared from "./shared.module.css";
 
 const GROUP_COLORS: Record<string, string> = {
-  "Time-domain": "#2C5EAD",
-  "Frequency-domain": "#1591DC",
-  "STFT / time-frequency": "#00B7CD",
-  MFCC: "#4BB8FA",
-  Wavelet: "#2C5EAD",
+  "Time-domain": "#0D7770",
+  "Frequency-domain": "#0D4946",
+  "STFT / time-frequency": "#3E9E92",
+  MFCC: "#A8E6CF",
+  Wavelet: "#1E8E7E",
 };
 
 /**
@@ -150,7 +150,7 @@ export function FeaturesTab({ result }: { result: AnalysisResult }) {
               data={waveletEnergy}
               margin={{ top: 8, right: 10, left: -6, bottom: 0 }}
             >
-              <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" vertical={false} />
+              <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" vertical={false} />
               <XAxis dataKey="label" tickLine={false} interval={0} angle={-14} height={44} textAnchor="end" />
               <YAxis tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`} tickLine={false} width={48} />
               <Tooltip
@@ -164,7 +164,7 @@ export function FeaturesTab({ result }: { result: AnalysisResult }) {
               />
               <Bar dataKey="energy" isAnimationActive={false} radius={[4, 4, 0, 0]}>
                 {waveletEnergy.map((_, i) => (
-                  <Cell key={i} fill={i === 0 ? "#2C5EAD" : "#4BB8FA"} />
+                  <Cell key={i} fill={i === 0 ? "#0D7770" : "#A8E6CF"} />
                 ))}
               </Bar>
             </BarChart>
@@ -186,7 +186,7 @@ export function FeaturesTab({ result }: { result: AnalysisResult }) {
             margin={{ top: 8, right: 10, left: -6, bottom: 0 }}
             barGap={4}
           >
-            <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" vertical={false} />
+            <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" vertical={false} />
             <XAxis dataKey="group" tickLine={false} interval={0} angle={-10} height={48} textAnchor="end" />
             <YAxis tickLine={false} width={52} />
             <Tooltip
@@ -201,17 +201,17 @@ export function FeaturesTab({ result }: { result: AnalysisResult }) {
                 />
               }
             />
-            <Bar dataKey="mean" fill="#2C5EAD" isAnimationActive={false} radius={[4, 4, 0, 0]} maxBarSize={34} />
-            <Bar dataKey="spread" fill="#C4E2F5" isAnimationActive={false} radius={[4, 4, 0, 0]} maxBarSize={34} />
+            <Bar dataKey="mean" fill="#0D7770" isAnimationActive={false} radius={[4, 4, 0, 0]} maxBarSize={34} />
+            <Bar dataKey="spread" fill="#D9F0F0" isAnimationActive={false} radius={[4, 4, 0, 0]} maxBarSize={34} />
           </BarChart>
         </ResponsiveContainer>
         <div className={shared.legend} style={{ marginTop: 6 }}>
           <span className={shared.legendItem}>
-            <span className={shared.legendDot} style={{ background: "#2C5EAD" }} />
+            <span className={shared.legendDot} style={{ background: "#0D7770" }} />
             Mean |value|
           </span>
           <span className={shared.legendItem}>
-            <span className={shared.legendDot} style={{ background: "#C4E2F5" }} />
+            <span className={shared.legendDot} style={{ background: "#D9F0F0" }} />
             Std deviation
           </span>
         </div>
@@ -253,7 +253,7 @@ export function FeaturesTab({ result }: { result: AnalysisResult }) {
                     <td>
                       <span
                         style={{
-                          color: GROUP_COLORS[f.group] ?? "#56688a",
+                          color: GROUP_COLORS[f.group] ?? "#4F6663",
                           fontWeight: 600,
                         }}
                       >

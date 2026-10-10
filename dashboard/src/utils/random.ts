@@ -1,5 +1,5 @@
 /* ============================================================
-   PulmoSense — deterministic pseudo-random helpers
+   Smart Respiratory Lung Analysis System — deterministic pseudo-random helpers
    ------------------------------------------------------------
    Mock analysis data must be reproducible across reloads so the
    dashboard always tells a consistent story during demonstrations.

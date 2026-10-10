@@ -10,21 +10,21 @@ import styles from "./Heatmap.module.css";
 type ScaleName = "blues" | "ocean";
 
 const SCALES: Record<ScaleName, number[][]> = {
-  // white → pale blue → light blue → primary → deep navy
+  // white → pale turquoise → mint → teal → deep teal
   blues: [
     [255, 255, 255],
-    [196, 226, 245],
-    [75, 184, 250],
-    [44, 94, 173],
-    [14, 34, 84],
+    [217, 240, 240],
+    [168, 230, 207],
+    [13, 119, 112],
+    [13, 73, 70],
   ],
-  // deep navy → teal → cyan → pale → white (spectrogram style)
+  // deep teal → teal → mid teal → mint → warm off-white
   ocean: [
-    [12, 28, 64],
-    [11, 91, 140],
-    [0, 183, 205],
-    [150, 226, 250],
-    [250, 253, 255],
+    [13, 73, 70],
+    [13, 119, 112],
+    [62, 158, 146],
+    [168, 230, 207],
+    [246, 245, 240],
   ],
 };
 
@@ -173,12 +173,12 @@ export function Heatmap({
     }
 
     // Frame.
-    ctx.strokeStyle = "rgba(22,35,61,0.14)";
+    ctx.strokeStyle = "rgba(38,61,58,0.16)";
     ctx.lineWidth = 1;
     ctx.strokeRect(padLeft + 0.5, padTop + 0.5, plotW - 1, plotH - 1);
 
     // Axis labels.
-    ctx.fillStyle = "#8496b0";
+    ctx.fillStyle = "#637975";
     ctx.font = "10px Inter, system-ui, sans-serif";
     ctx.textBaseline = "middle";
 
@@ -192,9 +192,9 @@ export function Heatmap({
       ctx.textAlign = "right";
       ctx.fillText(rows[rowIndex] ?? "", padLeft - 6, y);
       ctx.textAlign = "left";
-      ctx.fillStyle = "rgba(132,150,176,0.5)";
+      ctx.fillStyle = "rgba(99,121,117,0.55)";
       ctx.fillRect(padLeft - 3, y, 3, 1);
-      ctx.fillStyle = "#8496b0";
+      ctx.fillStyle = "#637975";
     }
 
     const xLabelCount = Math.min(xTicks, nCols);
@@ -208,7 +208,7 @@ export function Heatmap({
     }
 
     // Titles.
-    ctx.fillStyle = "#8496b0";
+    ctx.fillStyle = "#637975";
     ctx.font = "10px Inter, system-ui, sans-serif";
     if (xTitle) {
       ctx.textAlign = "center";

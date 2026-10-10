@@ -19,9 +19,9 @@ import { ChartTooltip } from "../../charts/ChartTooltip";
 import shared from "./shared.module.css";
 
 const STAGE_COLORS: Record<PreprocessStageKey, string> = {
-  original: "#8496b0",
-  filtered: "#1591DC",
-  denoised: "#2C5EAD",
+  original: "#637975",
+  filtered: "#0D4946",
+  denoised: "#0D7770",
 };
 
 /**
@@ -107,7 +107,7 @@ export function PreprocessingTab({ result }: { result: AnalysisResult }) {
             data={chartData}
             margin={{ top: 8, right: 10, left: -6, bottom: 0 }}
           >
-            <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" vertical={false} />
+            <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" vertical={false} />
             <XAxis
               dataKey="t"
               type="number"
@@ -126,7 +126,7 @@ export function PreprocessingTab({ result }: { result: AnalysisResult }) {
                 />
               }
             />
-            <ReferenceLine y={0} stroke="#D2DDED" />
+            <ReferenceLine y={0} stroke="#D6D2C6" />
             <Line
               type="monotone"
               dataKey="a"
@@ -155,7 +155,7 @@ export function PreprocessingTab({ result }: { result: AnalysisResult }) {
               data={response}
               margin={{ top: 8, right: 10, left: -6, bottom: 0 }}
             >
-              <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" vertical={false} />
+              <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" vertical={false} />
               <XAxis
                 dataKey="frequency"
                 type="number"
@@ -166,7 +166,7 @@ export function PreprocessingTab({ result }: { result: AnalysisResult }) {
                   value: "Frequency (Hz)",
                   position: "insideBottom",
                   offset: -2,
-                  style: { fill: "#8496b0", fontSize: 10 },
+                  style: { fill: "#637975", fontSize: 10 },
                 }}
               />
               <YAxis
@@ -188,11 +188,11 @@ export function PreprocessingTab({ result }: { result: AnalysisResult }) {
                   />
                 }
               />
-              <ReferenceLine y={-3} stroke="#C4E2F5" strokeDasharray="4 4" />
+              <ReferenceLine y={-3} stroke="#D9F0F0" strokeDasharray="4 4" />
               <Line
                 type="monotone"
                 dataKey="iirDb"
-                stroke="#2C5EAD"
+                stroke="#0D7770"
                 strokeWidth={1.8}
                 dot={false}
                 isAnimationActive={false}
@@ -201,7 +201,7 @@ export function PreprocessingTab({ result }: { result: AnalysisResult }) {
               <Line
                 type="monotone"
                 dataKey="firDb"
-                stroke="#FF9100"
+                stroke="#FF8066"
                 strokeWidth={1.4}
                 strokeDasharray="5 3"
                 dot={false}
@@ -212,15 +212,15 @@ export function PreprocessingTab({ result }: { result: AnalysisResult }) {
           </ResponsiveContainer>
           <div className={shared.legend} style={{ marginTop: 8 }}>
             <span className={shared.legendItem}>
-              <span className={shared.legendDot} style={{ background: "#2C5EAD" }} />
+              <span className={shared.legendDot} style={{ background: "#0D7770" }} />
               Butterworth IIR
             </span>
             <span className={shared.legendItem}>
-              <span className={shared.legendDot} style={{ background: "#FF9100" }} />
+              <span className={shared.legendDot} style={{ background: "#FF8066" }} />
               Windowed-sinc FIR
             </span>
             <span className={shared.legendItem}>
-              <span className={shared.legendDot} style={{ background: "#C4E2F5" }} />
+              <span className={shared.legendDot} style={{ background: "#D9F0F0" }} />
               −3 dB line
             </span>
           </div>

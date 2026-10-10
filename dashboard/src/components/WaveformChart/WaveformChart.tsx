@@ -57,12 +57,12 @@ export function WaveformChart({
           >
             <defs>
               <linearGradient id="psWaveFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#1591DC" stopOpacity={0.32} />
-                <stop offset="100%" stopColor="#1591DC" stopOpacity={0.02} />
+                <stop offset="0%" stopColor="#0D4946" stopOpacity={0.32} />
+                <stop offset="100%" stopColor="#0D4946" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <CartesianGrid
-              stroke="#E3EAF3"
+              stroke="#E4E1D8"
               strokeDasharray="3 4"
               vertical={false}
             />
@@ -92,22 +92,22 @@ export function WaveformChart({
                 />
               }
             />
-            <ReferenceLine y={0} stroke="#D2DDED" />
+            <ReferenceLine y={0} stroke="#D6D2C6" />
             <Area
               type="monotone"
               dataKey="a"
-              stroke="#2C5EAD"
+              stroke="#0D7770"
               strokeWidth={1.1}
               fill="url(#psWaveFill)"
               isAnimationActive={false}
               dot={false}
-              activeDot={{ r: 3, fill: "#2C5EAD", stroke: "#fff", strokeWidth: 1.5 }}
+              activeDot={{ r: 3, fill: "#0D7770", stroke: "#fff", strokeWidth: 1.5 }}
             />
             <Brush
               dataKey="t"
               height={24}
-              stroke="#C4E2F5"
-              fill="#F8FAFD"
+              stroke="#D9F0F0"
+              fill="#FAF9F5"
               travellerWidth={9}
               tickFormatter={() => ""}
             />

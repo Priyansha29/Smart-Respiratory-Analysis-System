@@ -33,7 +33,11 @@ export class ErrorBoundary extends Component<
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     // Keep the real error visible for developers.
-    console.error("[PulmoSense] view render error:", error, info.componentStack);
+    console.error(
+      "[SmartRespiratory] view render error:",
+      error,
+      info.componentStack
+    );
   }
 
   componentDidUpdate(prev: ErrorBoundaryProps) {

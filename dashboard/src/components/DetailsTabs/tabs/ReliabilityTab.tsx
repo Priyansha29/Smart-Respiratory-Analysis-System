@@ -110,7 +110,7 @@ export function ReliabilityTab({ result }: { result: AnalysisResult }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {reliability.classAgreement.map((entry) => {
             const cls = CLASS_LABELS.find((c) => c.label === entry.label);
-            const color = cls ? CLASS_COLORS[cls.key] : "#2C5EAD";
+            const color = cls ? CLASS_COLORS[cls.key] : "#0D7770";
             return (
               <div
                 key={entry.label}

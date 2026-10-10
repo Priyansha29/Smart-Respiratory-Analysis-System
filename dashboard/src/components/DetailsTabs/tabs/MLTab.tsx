@@ -15,9 +15,9 @@ import { ChartTooltip } from "../../charts/ChartTooltip";
 import shared from "./shared.module.css";
 
 const METRIC_SERIES = [
-  { key: "accuracy", label: "Accuracy", color: "#2C5EAD" },
-  { key: "balancedAccuracy", label: "Balanced accuracy", color: "#1591DC" },
-  { key: "f1", label: "Macro F1", color: "#00B7CD" },
+  { key: "accuracy", label: "Accuracy", color: "#0D7770" },
+  { key: "balancedAccuracy", label: "Balanced accuracy", color: "#0D4946" },
+  { key: "f1", label: "Macro F1", color: "#3E9E92" },
 ] as const;
 
 /**
@@ -119,7 +119,7 @@ export function MLTab({ result }: { result: AnalysisResult }) {
               margin={{ top: 8, right: 8, left: -6, bottom: 0 }}
               barGap={2}
             >
-              <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" vertical={false} />
+              <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" vertical={false} />
               <XAxis dataKey="name" tickLine={false} interval={0} />
               <YAxis
                 domain={[0, 1]}
@@ -145,7 +145,7 @@ export function MLTab({ result }: { result: AnalysisResult }) {
                 }
               />
               <Legend
-                wrapperStyle={{ fontSize: 11, color: "#56688a" }}
+                wrapperStyle={{ fontSize: 11, color: "#4F6663" }}
                 iconSize={9}
               />
               {METRIC_SERIES.map((s) => (
@@ -239,8 +239,8 @@ export function MLTab({ result }: { result: AnalysisResult }) {
                             fontWeight: isDiagonal ? 750 : 600,
                             fontVariantNumeric: "tabular-nums",
                             background: isDiagonal
-                              ? `rgba(44, 94, 173, ${0.12 + intensity * 0.72})`
-                              : `rgba(223, 48, 28, ${intensity * 0.28})`,
+                              ? `rgba(13, 119, 112, ${0.12 + intensity * 0.72})`
+                              : `rgba(217, 72, 47, ${intensity * 0.28})`,
                             color: isDiagonal
                               ? intensity > 0.45
                                 ? "#fff"

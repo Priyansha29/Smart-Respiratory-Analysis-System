@@ -15,8 +15,8 @@ import { ChartTooltip } from "../../charts/ChartTooltip";
 import shared from "./shared.module.css";
 
 const PHASE_FILL: Record<RespiratorySegment["phase"], string> = {
-  Inspiration: "rgba(0, 183, 205, 0.17)",
-  Expiration: "rgba(75, 184, 250, 0.14)",
+  Inspiration: "rgba(62, 158, 146, 0.17)",
+  Expiration: "rgba(168, 230, 207, 0.14)",
 };
 
 /**
@@ -72,14 +72,14 @@ export function SegmentationTab({ result }: { result: AnalysisResult }) {
             <span className={shared.legendItem}>
               <span
                 className={shared.legendDot}
-                style={{ background: "rgba(0,183,205,0.5)" }}
+                style={{ background: "rgba(62,158,146,0.5)" }}
               />
               Inspiration
             </span>
             <span className={shared.legendItem}>
               <span
                 className={shared.legendDot}
-                style={{ background: "rgba(75,184,250,0.45)" }}
+                style={{ background: "rgba(168,230,207,0.45)" }}
               />
               Expiration
             </span>
@@ -91,7 +91,7 @@ export function SegmentationTab({ result }: { result: AnalysisResult }) {
             data={fullData}
             margin={{ top: 6, right: 10, left: -6, bottom: 0 }}
           >
-            <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" vertical={false} />
+            <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" vertical={false} />
             <XAxis
               dataKey="t"
               type="number"
@@ -117,14 +117,14 @@ export function SegmentationTab({ result }: { result: AnalysisResult }) {
                 x2={seg.end}
                 fill={PHASE_FILL[seg.phase]}
                 fillOpacity={seg.id === selected ? 1 : 0.65}
-                stroke={seg.id === selected ? "#2C5EAD" : "transparent"}
+                stroke={seg.id === selected ? "#0D7770" : "transparent"}
                 strokeWidth={seg.id === selected ? 1.2 : 0}
               />
             ))}
             <Area
               type="monotone"
               dataKey="a"
-              stroke="#2C5EAD"
+              stroke="#0D7770"
               strokeWidth={1}
               fill="none"
               isAnimationActive={false}
@@ -198,7 +198,7 @@ export function SegmentationTab({ result }: { result: AnalysisResult }) {
                   margin={{ top: 6, right: 10, left: -6, bottom: 0 }}
                 >
                   <CartesianGrid
-                    stroke="#E3EAF3"
+                    stroke="#E4E1D8"
                     strokeDasharray="3 4"
                     vertical={false}
                   />
@@ -223,9 +223,9 @@ export function SegmentationTab({ result }: { result: AnalysisResult }) {
                   <Area
                     type="monotone"
                     dataKey="a"
-                    stroke="#1591DC"
+                    stroke="#0D4946"
                     strokeWidth={1.1}
-                    fill="rgba(21,145,220,0.12)"
+                    fill="rgba(13,73,70,0.12)"
                     isAnimationActive={false}
                     dot={false}
                   />

@@ -16,7 +16,9 @@
   background:
     linear-gradient(120deg, var(--ps-primary-weak) 0%, rgba(255, 255, 255, 0) 62%),
     var(--bg-panel);
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 20px 46px -30px rgba(0, 0, 0, 0.55),
+    var(--shadow-sm);
 }
 
 .ctaText {
@@ -54,7 +56,7 @@
 .ctaButton:hover {
   background: var(--ps-primary);
   color: #fff;
-  box-shadow: 0 8px 18px -10px rgba(44, 94, 173, 0.9);
+  box-shadow: 0 8px 18px -10px rgba(13, 119, 112, 0.9);
 }
 
 /* ---- Workspace ---------------------------------------------- */
@@ -62,7 +64,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--bg-panel);
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 20px 46px -30px rgba(0, 0, 0, 0.55),
+    var(--shadow-sm);
   overflow: hidden;
   animation: ps-fade-up var(--dur-slow) var(--ease);
 }
@@ -147,7 +151,7 @@
 
 .closeDetails:hover {
   color: var(--ps-alert);
-  border-color: #f7cfca;
+  border-color: #F6D3CB;
   background: var(--ps-alert-weak);
 }
 

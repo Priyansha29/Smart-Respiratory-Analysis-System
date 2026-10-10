@@ -1,4 +1,4 @@
-# PulmoSense Dashboard (Frontend)
+# Smart Respiratory Lung Analysis System Dashboard (Frontend)
 
 A light, clinical-style web frontend for the respiratory-sound analysis
 pipeline. With a backend configured it runs **real MATLAB inference**:

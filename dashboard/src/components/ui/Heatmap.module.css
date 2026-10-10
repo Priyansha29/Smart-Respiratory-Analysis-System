@@ -12,7 +12,7 @@
 .tooltip {
   position: absolute;
   pointer-events: none;
-  background: #12203a;
+  background: #0D4946;
   color: #fff;
   padding: 5px 9px;
   border-radius: var(--radius-sm);

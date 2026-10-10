@@ -1,5 +1,5 @@
 /* Generates a synthetic respiratory-like WAV recording for demoing
- * the PulmoSense dashboard (Stage 1). Not medical data.
+ * the Smart Respiratory Lung Analysis System dashboard (Stage 1). Not medical data.
  *
  * Usage: node scripts/generateSample.mjs
  */

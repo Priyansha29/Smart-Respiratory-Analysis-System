@@ -32,22 +32,20 @@
   flex-shrink: 0;
 }
 
+.name {
+  font-size: 0.98rem;
+  font-weight: 720;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--ps-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .brandText {
   min-width: 0;
-}
-
-.name {
-  font-size: 1.0625rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.nameAccent {
-  color: var(--ps-primary);
+  overflow: hidden;
 }
 
 .tagline {
@@ -93,14 +91,19 @@
 }
 
 .statusDotBusy {
-  background: var(--ps-accent, #1591dc);
-  box-shadow: 0 0 0 3px rgba(21, 145, 220, 0.18);
+  background: var(--ps-secondary);
+  box-shadow: 0 0 0 3px rgba(13, 119, 112, 0.18);
   animation: pulse 1.4s ease-in-out infinite;
 }
 
 .statusDotWarn {
-  background: var(--ps-red, #d64545);
-  box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.16);
+  background: var(--ps-alert);
+  box-shadow: 0 0 0 3px rgba(217, 72, 47, 0.16);
+}
+
+.hideSm {
+  display: inline-flex;
+  align-items: center;
 }
 
 @keyframes pulse {
@@ -119,5 +122,8 @@
   }
   .inner {
     padding: 0 var(--sp-4);
+  }
+  .hideSm {
+    display: none;
   }
 }

@@ -14,11 +14,11 @@ import { ChartTooltip } from "../../charts/ChartTooltip";
 import shared from "./shared.module.css";
 
 const GROUP_COLORS: Record<string, string> = {
-  "Time-domain": "#2C5EAD",
-  "Frequency-domain": "#1591DC",
-  "STFT / time-frequency": "#00B7CD",
-  MFCC: "#4BB8FA",
-  Wavelet: "#00B7CD",
+  "Time-domain": "#0D7770",
+  "Frequency-domain": "#0D4946",
+  "STFT / time-frequency": "#3E9E92",
+  MFCC: "#A8E6CF",
+  Wavelet: "#1E8E7E",
 };
 
 /**
@@ -56,7 +56,7 @@ export function ExplainabilityTab({ result }: { result: AnalysisResult }) {
           layout="vertical"
           margin={{ top: 4, right: 24, left: 8, bottom: 0 }}
         >
-          <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" horizontal={false} />
+          <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" horizontal={false} />
           <XAxis
             type="number"
             domain={[0, maxImportance * 1.05]}
@@ -87,7 +87,7 @@ export function ExplainabilityTab({ result }: { result: AnalysisResult }) {
             maxBarSize={18}
           >
             {top.map((f) => (
-              <Cell key={f.name} fill={GROUP_COLORS[f.group] ?? "#2C5EAD"} />
+              <Cell key={f.name} fill={GROUP_COLORS[f.group] ?? "#0D7770"} />
             ))}
           </Bar>
         </BarChart>

@@ -1,41 +1,56 @@
 /* ============================================================
-   PulmoSense — Design tokens
-   Clinical / biomedical analytics visual language.
-   Light theme, restrained color, high readability.
+   Smart Respiratory Lung Analysis System — Design tokens
+   Biomedical research visual language.
+   Warm off-white surfaces, deep-teal ink, mint + coral accents.
    ============================================================ */
 
 :root {
-  /* ---- Brand palette ---------------------------------------- */
-  --ps-primary: #2c5ead; /* Primary blue   */
-  --ps-secondary: #1591dc; /* Secondary blue */
-  --ps-light: #4bb8fa; /* Light blue     */
-  --ps-pale: #c4e2f5; /* Very light blue*/
-  --ps-alert: #df301c; /* Alert red      */
-  --ps-orange: #ff9100; /* Orange         */
-  --ps-warm: #fff1d1; /* Very light warm*/
-  --ps-cyan: #00b7cd; /* Cyan           */
+  /* ---- Core palette ----------------------------------------- */
+  --teal-deep: #0d4946;
+  --teal: #0d7770;
+  --teal-mid: #3e9e92; /* interpolated mid tone          */
+  --teal-soft: #6fc3b4; /* lighter tone for gradients/icons */
+  --mint: #a8e6cf;
+  --turquoise: #d9f0f0;
+  --cream: #f6f5f0;
+  --coral: #ff8066;
+  --ink: #263d3a;
+  --muted-ink: #637975;
+
+  /* ---- Brand aliases (existing components reference these) --- */
+  --ps-primary: var(--teal-deep); /* Primary — headings, actions  */
+  --ps-secondary: var(--teal); /* Teal accent — hover / active   */
+  --ps-light: var(--teal-soft); /* Gradients / large icons        */
+  --ps-pale: var(--turquoise); /* Very light turquoise           */
+  --ps-alert: #d9482f; /* Deep coral — readable error ink */
+  --ps-orange: var(--coral); /* Coral emphasis / warnings     */
+  --ps-warm: #fbede6; /* Pale coral wash                */
+  --ps-cyan: var(--teal); /* Teal accent                    */
 
   /* ---- Derived accents -------------------------------------- */
-  --ps-primary-weak: #eaf1fb;
-  --ps-cyan-weak: #e2f7fb;
-  --ps-alert-weak: #fdecea;
-  --ps-orange-weak: #fff5e6;
-  --ps-green: #1f9d6d;
-  --ps-green-weak: #e7f6f0;
+  --ps-primary-weak: #e1efec;
+  --ps-cyan-weak: #e1f1ef;
+  --ps-alert-weak: #fce9e3;
+  --ps-orange-weak: #fdeee9;
+  --ps-green: #1e8e7e;
+  --ps-green-weak: #e3f2ee;
 
   /* ---- Surfaces & structure --------------------------------- */
-  --bg-app: #f4f7fb;
+  /* Deep teal page canvas so light content surfaces "pop". */
+  --canvas: #0f3a37;
+  --canvas-high: #155149;
+  --bg-app: var(--canvas);
   --bg-panel: #ffffff;
-  --bg-subtle: #f8fafd;
-  --bg-sunken: #eef3f9;
-  --border: #e3eaf3;
-  --border-strong: #d2dded;
+  --bg-subtle: #faf9f5;
+  --bg-sunken: #eeebe3;
+  --border: #e4e1d8;
+  --border-strong: #d6d2c6;
   --border-focus: var(--ps-secondary);
 
   /* ---- Text ------------------------------------------------- */
-  --text: #16233d;
-  --text-secondary: #56688a;
-  --text-muted: #8496b0;
+  --text: var(--ink);
+  --text-secondary: #4f6663;
+  --text-muted: var(--muted-ink);
   --text-inverse: #ffffff;
 
   /* ---- Typography ------------------------------------------- */
@@ -78,12 +93,12 @@
   --radius-pill: 999px;
 
   /* ---- Shadows ---------------------------------------------- */
-  --shadow-xs: 0 1px 2px rgba(22, 35, 61, 0.05);
-  --shadow-sm: 0 1px 3px rgba(22, 35, 61, 0.06),
-    0 4px 12px -6px rgba(44, 94, 173, 0.12);
-  --shadow-md: 0 2px 4px rgba(22, 35, 61, 0.05),
-    0 12px 28px -12px rgba(44, 94, 173, 0.18);
-  --shadow-focus: 0 0 0 3px rgba(21, 145, 220, 0.25);
+  --shadow-xs: 0 1px 2px rgba(13, 73, 70, 0.05);
+  --shadow-sm: 0 1px 3px rgba(13, 73, 70, 0.06),
+    0 4px 12px -6px rgba(13, 73, 70, 0.12);
+  --shadow-md: 0 2px 4px rgba(13, 73, 70, 0.05),
+    0 12px 28px -12px rgba(13, 73, 70, 0.16);
+  --shadow-focus: 0 0 0 3px rgba(13, 119, 112, 0.22);
 
   /* ---- Transitions ------------------------------------------ */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);

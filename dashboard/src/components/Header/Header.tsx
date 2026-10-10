@@ -28,20 +28,20 @@ export function Header({ status }: HeaderProps) {
           <Logo className={styles.mark} />
           <div className={styles.brandText}>
             <div className={styles.name}>
-              <span>
-                Pulmo<span className={styles.nameAccent}>Sense</span>
-              </span>
+              Smart Respiratory Lung Analysis System
             </div>
             <div className={styles.tagline}>
-              An Intelligent Respiratory Sound &amp; Lung Analysis Platform
+              Biomedical signal analysis research prototype
             </div>
           </div>
         </div>
 
         <div className={styles.right}>
-          <Badge variant="primary" title="Engineering project build">
-            Research Prototype
-          </Badge>
+          <span className={styles.hideSm}>
+            <Badge variant="primary" title="Engineering project build">
+              Research Prototype
+            </Badge>
+          </span>
           <span className={styles.status} title={view.title}>
             <span className={`${styles.statusDot} ${view.dotClass}`} aria-hidden />
             {view.label}
@@ -105,7 +105,7 @@ function describe(status: SystemStatus): {
   }
 }
 
-/** PulmoSense mark: breath waveform inside a rounded shield. */
+/** System mark: breath waveform inside a rounded teal shield. */
 function Logo({ className }: { className?: string }) {
   return (
     <svg
@@ -117,8 +117,8 @@ function Logo({ className }: { className?: string }) {
     >
       <defs>
         <linearGradient id="ps-mark" x1="0" y1="0" x2="40" y2="40">
-          <stop offset="0%" stopColor="#2C5EAD" />
-          <stop offset="100%" stopColor="#1591DC" />
+          <stop offset="0%" stopColor="#0D7770" />
+          <stop offset="100%" stopColor="#0D4946" />
         </linearGradient>
       </defs>
       <rect width="40" height="40" rx="11" fill="url(#ps-mark)" />
@@ -131,7 +131,7 @@ function Logo({ className }: { className?: string }) {
         fill="none"
         opacity="0.95"
       />
-      <circle cx="31.5" cy="21.5" r="2.1" fill="#C4E2F5" />
+      <circle cx="31.5" cy="21.5" r="2.1" fill="#D9F0F0" />
     </svg>
   );
 }

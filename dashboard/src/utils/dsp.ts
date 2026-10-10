@@ -1,5 +1,5 @@
 /* ============================================================
-   PulmoSense — lightweight DSP helpers
+   Smart Respiratory Lung Analysis System — lightweight DSP helpers
    ------------------------------------------------------------
    These functions produce the VISUAL signal representations shown
    by the dashboard during Stage 1 (browser-computed previews of

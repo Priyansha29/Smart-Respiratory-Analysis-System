@@ -2,7 +2,9 @@
   background: var(--bg-panel);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 20px 46px -30px rgba(0, 0, 0, 0.55),
+    var(--shadow-sm);
   display: flex;
   flex-direction: column;
   min-width: 0;

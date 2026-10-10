@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// PulmoSense dashboard dev/build configuration.
+// Smart Respiratory Lung Analysis System dashboard dev/build configuration.
 // The frontend is intentionally decoupled from the MATLAB engine: during Stage 1
 // it talks to a mock service (src/services/api.ts) that will later be swapped
 // for a real FastAPI POST /analyze call.

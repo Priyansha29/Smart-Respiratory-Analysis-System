@@ -1,5 +1,5 @@
 /* ============================================================
-   PulmoSense — analysis service (API abstraction)
+   Smart Respiratory Lung Analysis System — analysis service (API abstraction)
    ------------------------------------------------------------
    The dashboard only ever calls `analyzeAudio(file)`.
 

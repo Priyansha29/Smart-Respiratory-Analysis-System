@@ -93,7 +93,7 @@ export function PCATab({ result }: { result: AnalysisResult }) {
 
           <ResponsiveContainer width="100%" height={340}>
             <ScatterChart margin={{ top: 8, right: 12, left: -6, bottom: 4 }}>
-              <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" />
+              <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" />
               <XAxis
                 dataKey="pc1"
                 type="number"
@@ -103,7 +103,7 @@ export function PCATab({ result }: { result: AnalysisResult }) {
                   value: "PC1",
                   position: "insideBottom",
                   offset: -2,
-                  style: { fill: "#8496b0", fontSize: 10 },
+                  style: { fill: "#637975", fontSize: 10 },
                 }}
               />
               <YAxis
@@ -116,13 +116,13 @@ export function PCATab({ result }: { result: AnalysisResult }) {
                   value: "PC2",
                   angle: -90,
                   position: "insideLeft",
-                  style: { fill: "#8496b0", fontSize: 10 },
+                  style: { fill: "#637975", fontSize: 10 },
                 }}
               />
               <ZAxis range={[16, 16]} />
               <Tooltip
                 isAnimationActive={false}
-                cursor={{ strokeDasharray: "3 3", stroke: "#B9C7DB" }}
+                cursor={{ strokeDasharray: "3 3", stroke: "#B9C4BE" }}
                 content={
                   <ChartTooltip
                     title="Respiratory cycle"
@@ -161,7 +161,7 @@ export function PCATab({ result }: { result: AnalysisResult }) {
                 layout="vertical"
                 margin={{ top: 4, right: 16, left: 8, bottom: 0 }}
               >
-                <CartesianGrid stroke="#E3EAF3" strokeDasharray="3 4" horizontal={false} />
+                <CartesianGrid stroke="#E4E1D8" strokeDasharray="3 4" horizontal={false} />
                 <XAxis
                   type="number"
                   domain={[0, 1]}
@@ -192,7 +192,7 @@ export function PCATab({ result }: { result: AnalysisResult }) {
                   {varianceData.map((_, i) => (
                     <Cell
                       key={i}
-                      fill={["#2C5EAD", "#1591DC", "#C4E2F5"][i]}
+                      fill={["#0D7770", "#0D4946", "#D9F0F0"][i]}
                     />
                   ))}
                 </Bar>

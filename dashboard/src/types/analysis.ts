@@ -1,5 +1,5 @@
 /* ============================================================
-   PulmoSense — Analysis data contract
+   Smart Respiratory Lung Analysis System — Analysis data contract
    ------------------------------------------------------------
    This module defines the structured JSON contract exchanged
    between the dashboard and the API layer.

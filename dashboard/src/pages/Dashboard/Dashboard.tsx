@@ -11,6 +11,7 @@ import {
 } from "../../services/api";
 import { readAudioMetadata } from "../../utils/wav";
 import { Header, type SystemStatus } from "../../components/Header/Header";
+import { Hero } from "../../components/Hero/Hero";
 import { AudioInputPanel } from "../../components/AudioInput/AudioInputPanel";
 import { AnalysisResultPanel } from "../../components/AnalysisResult/AnalysisResult";
 import { SignalQualityCard } from "../../components/SignalQuality/SignalQualityCard";
@@ -18,6 +19,7 @@ import { WaveformChart } from "../../components/WaveformChart/WaveformChart";
 import { DetailsTabs } from "../../components/DetailsTabs/DetailsTabs";
 import { Card } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
+import { ProcessingWave } from "../../components/ui/ProcessingWave";
 import { DisclaimerNotice, DemoNotice } from "../../components/ui/Notice";
 import styles from "./Dashboard.module.css";
 
@@ -105,6 +107,8 @@ export function Dashboard() {
       <Header status={status} />
 
       <main className={styles.page}>
+        <Hero />
+
         {status.mode === "demo" && (
           <DemoNotice>
             <strong>Demo mode.</strong> Results on this page are simulated for
@@ -116,7 +120,11 @@ export function Dashboard() {
         {/* ---------------- Input + result ---------------- */}
         <div className={styles.topGrid}>
           <div className={styles.leftColumn}>
-            <Card eyebrow="Audio input" title="Respiratory recording">
+            <Card
+              eyebrow="Audio input"
+              title="Respiratory recording"
+              className={styles.inputCard}
+            >
               <AudioInputPanel
                 metadata={metadata}
                 isAnalyzing={analyzing}
@@ -163,15 +171,16 @@ export function Dashboard() {
               }
             >
               {analyzing ? (
-                <div className={styles.skeleton} style={{ border: "none", padding: 0, boxShadow: "none" }}>
-                  <div className={styles.skeletonLabel}>
-                    <span className={styles.spinner} />
-                    {progress?.phase === "uploading"
-                      ? `Uploading recording… ${progress.percent}%`
-                      : progress?.phase === "analyzing"
-                        ? "Analyzing on the MATLAB engine · preprocessing · feature extraction · classification…"
-                        : "Running DSP preprocessing · feature extraction · classification…"}
-                  </div>
+                <div className={styles.loadingState}>
+                  <ProcessingWave
+                    label={
+                      progress?.phase === "uploading"
+                        ? `Uploading recording… ${progress.percent}%`
+                        : progress?.phase === "analyzing"
+                          ? "Analyzing on the MATLAB engine · preprocessing · feature extraction · classification…"
+                          : "Running DSP preprocessing · feature extraction · classification…"
+                    }
+                  />
                   <div className={`${styles.skeletonRow} ${styles.skeletonTitle}`} />
                   <div className={styles.skeletonRow} />
                   <div className={styles.skeletonRow} style={{ width: "72%" }} />
@@ -263,8 +272,7 @@ export function Dashboard() {
           </DisclaimerNotice>
           <div className={styles.footerRow}>
             <span className={styles.footerBrand}>
-              PulmoSense · An Intelligent Respiratory Sound &amp; Lung Analysis
-              Platform
+              Smart Respiratory Lung Analysis System
             </span>
             <span>
               Research prototype · DSP + feature engineering + machine-learning

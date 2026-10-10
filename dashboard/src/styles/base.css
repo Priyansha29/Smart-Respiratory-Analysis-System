@@ -1,5 +1,5 @@
 /* ============================================================
-   PulmoSense — Base styles & resets
+   Smart Respiratory Lung Analysis System — Base styles & resets
    ============================================================ */
 
 *,
@@ -21,7 +21,20 @@ body {
   font-size: var(--fs-md);
   line-height: var(--lh-normal);
   color: var(--text);
-  background: var(--bg-app);
+  background-color: var(--bg-app);
+  /* Deep teal canvas: soft top glow + fine mint dot texture. */
+  background-image:
+    radial-gradient(
+      130% 80% at 50% -18%,
+      var(--canvas-high) 0%,
+      rgba(21, 81, 73, 0) 62%
+    ),
+    radial-gradient(rgba(168, 230, 207, 0.075) 1px, transparent 1.6px);
+  background-size:
+    100% 100%,
+    22px 22px;
+  background-repeat: no-repeat, repeat;
+  background-attachment: fixed, fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -167,5 +180,17 @@ table {
   }
   100% {
     background-position: 400px 0;
+  }
+}
+
+/* ---- Motion preferences ----------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

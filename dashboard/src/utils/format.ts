@@ -1,5 +1,5 @@
 /* ============================================================
-   PulmoSense — formatting helpers
+   Smart Respiratory Lung Analysis System — formatting helpers
    ============================================================ */
 
 /** Round to `digits` decimals and drop trailing zeros. */

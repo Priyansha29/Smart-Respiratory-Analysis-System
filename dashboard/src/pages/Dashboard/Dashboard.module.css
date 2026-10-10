@@ -18,6 +18,25 @@
   align-items: start;
 }
 
+/* Prominent upload / analyze surface. */
+.inputCard {
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+.inputCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: linear-gradient(90deg, var(--teal-deep), var(--teal));
+}
+
+.inputCard:hover {
+  border-color: var(--border-strong);
+}
+
 .leftColumn {
   display: flex;
   flex-direction: column;
@@ -66,12 +85,10 @@
   line-height: var(--lh-relaxed);
 }
 
-.skeleton {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--bg-panel);
-  padding: var(--sp-6);
-  box-shadow: var(--shadow-sm);
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
 }
 
 .skeletonRow {
@@ -80,7 +97,7 @@
   background: linear-gradient(
     90deg,
     var(--bg-sunken) 0%,
-    #e9f0f8 50%,
+    #EFEDE6 50%,
     var(--bg-sunken) 100%
   );
   background-size: 400px 100%;
@@ -100,31 +117,12 @@
   background: linear-gradient(
     90deg,
     var(--bg-sunken) 0%,
-    #e9f0f8 50%,
+    #EFEDE6 50%,
     var(--bg-sunken) 100%
   );
   background-size: 400px 100%;
   animation: ps-shimmer 1.3s linear infinite;
   margin-top: 18px;
-}
-
-.skeletonLabel {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: var(--fs-sm);
-  font-weight: 640;
-  color: var(--ps-primary);
-  margin-bottom: 16px;
-}
-
-.spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--ps-pale);
-  border-top-color: var(--ps-primary);
-  border-radius: 50%;
-  animation: ps-spin 0.75s linear infinite;
 }
 
 /* ---- Section heading above waveform ---------------------------- */
@@ -143,16 +141,16 @@
   font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: #8a5a00;
+  color: #8A3A26;
   background: var(--ps-warm);
-  border: 1px solid #f7dfae;
+  border: 1px solid #F4CBBF;
   border-radius: var(--radius-pill);
   padding: 4px 11px;
 }
 
 /* ---- Footer ----------------------------------------------------- */
 .footer {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(217, 240, 240, 0.16);
   padding-top: var(--sp-5);
   display: flex;
   flex-direction: column;
@@ -166,12 +164,12 @@
   gap: var(--sp-4);
   flex-wrap: wrap;
   font-size: var(--fs-xs);
-  color: var(--text-muted);
+  color: rgba(233, 245, 242, 0.66);
 }
 
 .footerBrand {
   font-weight: 700;
-  color: var(--text-secondary);
+  color: #eaf6f3;
 }
 
 @media (max-width: 1100px) {

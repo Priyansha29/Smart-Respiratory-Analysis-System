@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "PulmoSense - An Intelligent Respiratory Sound & Lung Analysis Platform (web dashboard frontend)",
+  "description": "Smart Respiratory Lung Analysis System — a research prototype for DSP + machine-learning analysis of respiratory acoustic patterns (web dashboard frontend)",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
